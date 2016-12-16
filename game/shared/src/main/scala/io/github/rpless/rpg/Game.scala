@@ -15,13 +15,22 @@ object SimpleGame extends Game {
   val PlayerSpeed: Double = 5
 
   def handleEvent(world: World, event: GameEvent): World = event match {
-    case Tick => world.copy(player = move(world.player))
+    case Tick => world.copy(player = tick(world.player))
+    case ChangeDirection(direction) =>
+      world.copy(player = changeDirection(world.player, direction))
+  }
+
+  private[rpg] def tick(player: Player): Player = {
+    move(player).copy(direction = Vector2.zero)
   }
 
   private[rpg] def move(player: Player): Player = {
-    val newPosition = player.position + (player.direction.unit * PlayerSpeed)
-    player.copy(position = newPosition)
+    if (player.direction.magnitude == 0) player
+    else player.copy(position = player.position + (player.direction * PlayerSpeed))
   }
+
+  private[rpg] def changeDirection(player: Player, direction: Vector2): Player =
+    player.copy(direction = (player.direction + direction).unit)
 
   //-----------------------------------
   // Render Logic
