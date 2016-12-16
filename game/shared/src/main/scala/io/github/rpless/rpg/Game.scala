@@ -26,7 +26,7 @@ object SimpleGame extends Game {
 
   private[rpg] def move(player: Player): Player = {
     if (player.direction.magnitude == 0) player
-    else player.copy(position = player.position + (player.direction * PlayerSpeed))
+    else player.copy(position = player.position + (player.direction.unit * PlayerSpeed))
   }
 
   private[rpg] def changeDirection(player: Player, direction: Vector2): Player =
