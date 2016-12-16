@@ -29,7 +29,7 @@ object CanvasRenderer {
     image match {
       case BaseImage =>
         ctx.fillStyle = "black"
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillRect(0, 0, Width, Height)
       case Rectangle(width, height) =>
         ctx.fillStyle = "blue"
         ctx.fillRect(0, 0, width, height)

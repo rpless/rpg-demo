@@ -15,7 +15,7 @@ object Rpg extends JSApp {
   override def main(): Unit = {
     CanvasRenderer.init()
     val gameLoop = new GameLoop(0.25.seconds)
-    val startingWorld = World(player = Player(UUID.randomUUID(), Vector2(100, 100), Vector2(1, 1)))
+    val startingWorld = World(player = Player(UUID.randomUUID(), Vector2(100, 100), Vector2.zero))
     gameLoop.run(
       initialWorld = startingWorld,
       game = SimpleGame,
