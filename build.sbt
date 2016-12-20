@@ -7,7 +7,10 @@ lazy val rpg = project.in(file("."))
 lazy val browser = project
   .settings(moduleName := "browser")
   .settings(buildSettings)
-  .settings(persistLauncher in Test := false)
+  .settings(
+    persistLauncher in Test := false,
+    persistLauncher in Compile := true
+  )
   .settings(libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1",
     "com.lihaoyi" %%% "scalatags" % "0.6.2"
@@ -15,6 +18,18 @@ lazy val browser = project
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(gameJS)
 
+lazy val server = project
+  .settings(moduleName := "rpg-server")
+  .settings(buildSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-http" % "10.0.0"
+    ),
+    (resourceGenerators in Compile) <+=
+      (fastOptJS in Compile in browser, packageScalaJSLauncher in Compile in browser)
+        .map((f1, f2) => Seq(f1.data, f2.data))
+  )
+  .dependsOn(browser)
 
 lazy val gameJVM = game.jvm
 lazy val gameJS = game.js
