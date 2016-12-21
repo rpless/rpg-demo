@@ -1,4 +1,4 @@
-package io.github.rpless.rpg_server
+package io.github.rpless.webserver
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http

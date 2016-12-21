@@ -18,8 +18,8 @@ lazy val browser = project
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(gameJS)
 
-lazy val server = project
-  .settings(moduleName := "rpg-server")
+lazy val webserver = project
+  .settings(moduleName := "webserver")
   .settings(buildSettings)
   .settings(
     libraryDependencies ++= Seq(
