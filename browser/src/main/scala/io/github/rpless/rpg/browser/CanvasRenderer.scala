@@ -1,6 +1,5 @@
 package io.github.rpless.rpg.browser
 
-import io.github.rpless.rpg.image.{BaseImage, Image, PlaceImage, Rectangle}
 import org.scalajs.dom
 import org.scalajs.dom.html
 

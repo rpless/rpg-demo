@@ -1,6 +1,7 @@
 package io.github.rpless.rpg.browser
 
-import io.github.rpless.rpg._
+import io.github.rpless.rpg.common.Vector2
+import io.github.rpless.rpg.singleplayer.events._
 import org.scalajs.dom
 import org.scalajs.dom.KeyboardEvent
 

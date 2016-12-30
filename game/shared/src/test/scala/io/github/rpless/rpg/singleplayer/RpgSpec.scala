@@ -1,7 +1,8 @@
-package io.github.rpless.rpg
+package io.github.rpless.rpg.singleplayer
 
-import org.scalacheck.{Arbitrary, Gen}
+import io.github.rpless.rpg.common.Vector2
 import org.scalacheck.Gen.Choose
+import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.prop.{Checkers, GeneratorDrivenPropertyChecks}
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -14,11 +15,10 @@ trait RpgSpec extends FlatSpec with Matchers with Checkers with GeneratorDrivenP
     y <- Choose.chooseDouble.choose(0, Height)
   } yield Vector2(x, y)
 
-  val playerGen: Gen[Player] = for {
-    id <- Gen.uuid
+  val playerGen: Gen[domain.Player] = for {
     position <- vectorGen
     direction <- vectorGen
-  } yield Player(id, position, direction)
+  } yield domain.Player(position, direction)
 
 
   implicit def arbitraryVector = Arbitrary(vectorGen)

@@ -1,4 +1,4 @@
-package io.github.rpless.rpg
+package io.github.rpless.rpg.common
 
 object Vector2 {
   val zero: Vector2 = Vector2(0, 0)
