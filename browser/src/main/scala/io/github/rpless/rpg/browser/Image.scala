@@ -6,14 +6,15 @@ import io.github.rpless.rpg.singleplayer.domain.World
 
 sealed trait Image
 case object BaseImage extends Image
-case class Rectangle(width: Double, height: Double) extends Image
+case class PlayerImage(spriteSheet: SpriteSheet, frame: Int) extends Image
 case class PlaceImage(image: Image, position: Vector2, onto: Image) extends Image
 
 object Image {
-  val PlayerSize: Double = 50
+  val KnightSpriteSheet = SpriteSheet(Vector2(64, 64), Vector2(0, 0), "knight.png")
+
   val renderImage: Render[Image] = (world: World) => {
     val player = world.player
-    val playerRect = Rectangle(PlayerSize, PlayerSize)
+    val playerRect = PlayerImage(KnightSpriteSheet, 0)
     PlaceImage(playerRect, player.position, BaseImage)
   }
 }

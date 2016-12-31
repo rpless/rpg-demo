@@ -10,3 +10,6 @@ I'm hoping to add the following interpreters for the Game:
 - Native OpenGL either view LWJGL or JOGL
 
 I'm also hoping to make a multiplayer version that proves out Akka Persistence and Cluster Sharding as a viable way of managing game state.
+
+# Attributions
+The [Full plate golden armor](http://opengameart.org/content/lpc-full-plate-golden-armor) sprite by [Vivid reality](http://opengameart.org/users/vividreality) is licensed under [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)

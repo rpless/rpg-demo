@@ -29,9 +29,10 @@ object CanvasRenderer {
       case BaseImage =>
         ctx.fillStyle = "black"
         ctx.fillRect(0, 0, Width, Height)
-      case Rectangle(width, height) =>
-        ctx.fillStyle = "blue"
-        ctx.fillRect(0, 0, width, height)
+      case PlayerImage(spriteSheet: SpriteSheet, frame: Int) =>
+        val size = spriteSheet.size
+        val offset = spriteSheet.baseOffset
+        ctx.drawImage(spriteSheet.image, offset.x, offset.y, size.x, size.y, 0, 0, size.x, size.y)
       case PlaceImage(i, pos, base) =>
         renderRec(base)
         ctx.save()
