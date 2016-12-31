@@ -1,6 +1,6 @@
 package io.github.rpless.rpg.singleplayer
 
-import io.github.rpless.rpg.common.Vector2
+import io.github.rpless.rpg.math.Vector2
 
 object events {
   sealed trait GameEvent
