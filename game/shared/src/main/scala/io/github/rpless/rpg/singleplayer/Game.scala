@@ -2,7 +2,6 @@ package io.github.rpless.rpg.singleplayer
 
 import io.github.rpless.rpg.math.Vector2
 import io.github.rpless.rpg.singleplayer.domain._
-import io.github.rpless.rpg.singleplayer.commands._
 
 trait Game {
   import domain.Lenses._

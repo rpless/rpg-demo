@@ -1,7 +1,7 @@
 package io.github.rpless.rpg.browser
 
 import io.github.rpless.rpg.math.Vector2
-import io.github.rpless.rpg.singleplayer.events._
+import io.github.rpless.rpg.singleplayer.{ChangeDirection, GameCommand}
 import org.scalajs.dom
 import org.scalajs.dom.KeyboardEvent
 
@@ -11,7 +11,7 @@ object InputContextMap {
   private val Left = Vector2(-1, 0)
   private val Right = Left.negate
 
-  def inputToDirection: PartialFunction[String, GameEvent] = {
+  def inputToDirection: PartialFunction[String, GameCommand] = {
     case "w" => ChangeDirection(Up)
     case "a" => ChangeDirection(Left)
     case "s" => ChangeDirection(Down)
@@ -19,7 +19,7 @@ object InputContextMap {
   }
 }
 
-class Input(contextMapping: PartialFunction[String, GameEvent]) {
+class Input(contextMapping: PartialFunction[String, GameCommand]) {
   private var activeInputs: Map[String, Boolean] = Map.empty
 
   dom.window.addEventListener("keydown", (evt: KeyboardEvent) => {
@@ -36,7 +36,7 @@ class Input(contextMapping: PartialFunction[String, GameEvent]) {
     }
   })
 
-  def events(): Seq[GameEvent] = {
+  def events(): Seq[GameCommand] = {
     val active = activeInputs.collect({ case (key, true) => key }).toList
     val events = active.collect(contextMapping)
     println(events)
