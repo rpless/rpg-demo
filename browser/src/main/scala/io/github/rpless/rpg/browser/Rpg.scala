@@ -1,5 +1,6 @@
 package io.github.rpless.rpg.browser
 
+import io.github.rpless.rpg.browser.render.CanvasRenderer
 import io.github.rpless.rpg.math.Vector2
 import io.github.rpless.rpg.singleplayer.Game
 import io.github.rpless.rpg.singleplayer.domain.{Player, World}

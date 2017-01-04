@@ -1,5 +1,6 @@
-package io.github.rpless.rpg.browser
+package io.github.rpless.rpg.browser.render
 
+import io.github.rpless.rpg.browser.PlaceImage
 import org.scalajs.dom
 import org.scalajs.dom.html
 
@@ -32,6 +33,7 @@ object CanvasRenderer {
       case PlayerImage(spriteSheet: SpriteSheet, frame: Int) =>
         val size = spriteSheet.size
         val offset = spriteSheet.baseOffset
+        val frameOffset = offset.copy(x = offset.x + (size.x * frame % 9))
         ctx.drawImage(spriteSheet.image, offset.x, offset.y, size.x, size.y, 0, 0, size.x, size.y)
       case PlaceImage(i, pos, base) =>
         renderRec(base)

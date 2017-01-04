@@ -1,4 +1,4 @@
-package io.github.rpless.rpg.browser
+package io.github.rpless.rpg.browser.render
 
 import io.github.rpless.rpg.math.Vector2
 import org.scalajs.dom

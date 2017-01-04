@@ -1,7 +1,6 @@
-package io.github.rpless.rpg.browser
+package io.github.rpless.rpg.browser.render
 
 import io.github.rpless.rpg.math.Vector2
-import io.github.rpless.rpg.singleplayer.Render
 import io.github.rpless.rpg.singleplayer.domain.World
 
 sealed trait Image
@@ -12,9 +11,9 @@ case class PlaceImage(image: Image, position: Vector2, onto: Image) extends Imag
 object Image {
   val KnightSpriteSheet = SpriteSheet(Vector2(64, 64), Vector2(0, 0), "knight.png")
 
-  val renderImage: Render[Image] = (world: World) => {
+  val renderImage = (world: World) => {
     val player = world.player
-    val playerRect = PlayerImage(KnightSpriteSheet, 0)
+    val playerRect = PlayerImage(KnightSpriteSheet, 5)
     PlaceImage(playerRect, player.position, BaseImage)
   }
 }

@@ -1,23 +1,8 @@
-package io.github.rpless.rpg.browser
+package io.github.rpless.rpg.browser.inputs
 
-import io.github.rpless.rpg.math.Vector2
-import io.github.rpless.rpg.singleplayer.{ChangeDirection, GameCommand}
+import io.github.rpless.rpg.singleplayer.GameCommand
 import org.scalajs.dom
 import org.scalajs.dom.KeyboardEvent
-
-object InputContextMap {
-  private val Up = Vector2(0, -1)
-  private val Down = Up.negate
-  private val Left = Vector2(-1, 0)
-  private val Right = Left.negate
-
-  def inputToDirection: PartialFunction[String, GameCommand] = {
-    case "w" => ChangeDirection(Up)
-    case "a" => ChangeDirection(Left)
-    case "s" => ChangeDirection(Down)
-    case "d" => ChangeDirection(Right)
-  }
-}
 
 class Input(contextMapping: PartialFunction[String, GameCommand]) {
   private var activeInputs: Map[String, Boolean] = Map.empty
@@ -38,8 +23,6 @@ class Input(contextMapping: PartialFunction[String, GameCommand]) {
 
   def events(): Seq[GameCommand] = {
     val active = activeInputs.collect({ case (key, true) => key }).toList
-    val events = active.collect(contextMapping)
-    println(events)
-    events
+    active.collect(contextMapping)
   }
 }
