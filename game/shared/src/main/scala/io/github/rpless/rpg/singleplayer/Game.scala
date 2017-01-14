@@ -7,9 +7,20 @@ trait Game {
   import domain.Lenses._
   val PlayerSpeed: Double = 5
 
-  def handleEvent(world: World, command: GameCommand): World = command match {
-    case Tick => update(world)
-    case ChangeDirection(direction) => changePlayerDirection(world, direction)
+  def applyCommands(game: Game)(initialWorld: World, commands: Seq[GameCommand]): (World, Seq[GameEvent]) = {
+    commands.foldLeft((initialWorld, Seq.empty[GameEvent]))({ case ((world, events), command) =>
+      val (updatedWorld, event) = game.handleCommand(world, command)
+      (updatedWorld, events :+ event)
+    })
+  }
+
+  def handleCommand(world: World, command: GameCommand): (World, GameEvent) = command match {
+    case Tick =>
+      val updatedWorld = update(world)
+      (updatedWorld, PlayerPositionChanged(playerPositionLens.get(updatedWorld)))
+    case ChangeDirection(direction) =>
+      val updatedWorld = changePlayerDirection(world, direction)
+      (updatedWorld, PlayerDirectionUpdated(playerDirectionLens.get(updatedWorld)))
   }
 
   def update(world: World): World =
@@ -17,7 +28,10 @@ trait Game {
 
   private[singleplayer] def movePlayer(world: World): World = {
     val direction = playerDirectionLens.get(world)
-    playerPositionLens.modify({ pos => pos + (direction.unit * PlayerSpeed) })(world)
+    playerPositionLens.modify({ pos =>
+      println(s"Pos: $pos Direction $direction Delta ${direction.unit * PlayerSpeed}")
+      pos + (direction.unit * PlayerSpeed)
+    })(world)
   }
 
   def changePlayerDirection(world: World, direction: Vector2): World =

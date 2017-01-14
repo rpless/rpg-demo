@@ -1,6 +1,6 @@
 package io.github.rpless.rpg.browser.render
 
-import io.github.rpless.rpg.browser.PlaceImage
+import io.github.rpless.rpg.browser.render.domain.WorldView
 import org.scalajs.dom
 import org.scalajs.dom.html
 
@@ -14,33 +14,30 @@ object CanvasRenderer {
   val Width: Double = 600
   val Height = Width
 
-  def init(): Unit = {
+  def init(): WorldView => Unit = {
     canvas.width = Width.toInt
     canvas.height = Height.toInt
     main.appendChild(canvas)
+    drawWorldStuff
   }
 
-  def render(image: Image): Unit = {
+  private def drawWorldStuff(worldStuff: WorldView): Unit = {
+    val player = worldStuff.playerImage
+    val pos = player.position
+    val frame = player.frame
+    val spriteSheet = player.spriteSheet
     ctx.clearRect(0, 0, Width, Height)
-    renderRec(image)
-  }
 
-  private def renderRec(image: Image): Unit = {
-    image match {
-      case BaseImage =>
-        ctx.fillStyle = "black"
-        ctx.fillRect(0, 0, Width, Height)
-      case PlayerImage(spriteSheet: SpriteSheet, frame: Int) =>
-        val size = spriteSheet.size
-        val offset = spriteSheet.baseOffset
-        val frameOffset = offset.copy(x = offset.x + (size.x * frame % 9))
-        ctx.drawImage(spriteSheet.image, offset.x, offset.y, size.x, size.y, 0, 0, size.x, size.y)
-      case PlaceImage(i, pos, base) =>
-        renderRec(base)
-        ctx.save()
-        ctx.translate(pos.x, pos.y)
-        renderRec(i)
-        ctx.restore()
-    }
+    ctx.fillStyle = "green"
+    ctx.fillRect(0, 0, Width, Height)
+
+    ctx.save()
+    ctx.translate(pos.x, pos.y)
+
+    val size = spriteSheet.size
+    val frameOffset = size.copy(x = size.x * frame, y = size.y * player.direction)
+    ctx.drawImage(spriteSheet.image, frameOffset.x, frameOffset.y, size.x, size.y, 0, 0, size.x, size.y)
+
+    ctx.restore()
   }
 }
