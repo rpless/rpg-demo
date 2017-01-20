@@ -28,10 +28,7 @@ trait Game {
 
   private[singleplayer] def movePlayer(world: World): World = {
     val direction = playerDirectionLens.get(world)
-    playerPositionLens.modify({ pos =>
-      println(s"Pos: $pos Direction $direction Delta ${direction.unit * PlayerSpeed}")
-      pos + (direction.unit * PlayerSpeed)
-    })(world)
+    playerPositionLens.modify({ pos => pos + (direction.unit * PlayerSpeed) })(world)
   }
 
   def changePlayerDirection(world: World, direction: Vector2): World =
