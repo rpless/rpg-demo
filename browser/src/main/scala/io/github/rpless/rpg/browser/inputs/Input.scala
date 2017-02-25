@@ -21,7 +21,7 @@ class Input(contextMapping: PartialFunction[String, GameCommand]) {
     }
   })
 
-  def events(): Seq[GameCommand] = {
+  def commands(): Seq[GameCommand] = {
     val active = activeInputs.collect({ case (key, true) => key }).toList
     active.collect(contextMapping)
   }

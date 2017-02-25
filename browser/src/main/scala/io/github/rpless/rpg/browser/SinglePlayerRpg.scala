@@ -13,7 +13,7 @@ import scala.scalajs.js.annotation.JSExport
 object BrowserGame extends Game
 
 @JSExport
-object Rpg extends JSApp {
+object SinglePlayerRpg extends JSApp {
 
   @JSExport
   override def main(): Unit = {

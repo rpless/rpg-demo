@@ -18,7 +18,7 @@ object RpgServer extends App {
   val interface = config.getString("app.interface")
   val port = config.getInt("app.port")
 
-  val routes: Flow[HttpRequest, HttpResponse, Any] = Routes()
+  val routes: Flow[HttpRequest, HttpResponse, Any] = Routes(system)
 
   Http()
     .bindAndHandle(routes, interface, port)

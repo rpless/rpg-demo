@@ -7,7 +7,7 @@ import io.github.rpless.rpg.singleplayer.{PlayerDirectionUpdated, _}
 import io.github.rpless.rpg.singleplayer.domain._
 import org.scalajs.dom
 
-case class GameLoop(game: Game, renderer: WorldView => Unit) {
+class GameLoop(game: Game, renderer: WorldView => Unit) {
   val inputManager = new Input(ContextMaps.inputToGame)
 
   def loop(initialWorld: World, stuff: WorldView)(junk: Double): Unit = {
@@ -17,7 +17,7 @@ case class GameLoop(game: Game, renderer: WorldView => Unit) {
   }
 
   private def update(game: Game, world: World, worldStuff: WorldView) = {
-    val commands: Seq[GameCommand] = inputManager.events() :+ Tick
+    val commands: Seq[GameCommand] = inputManager.commands() :+ Tick
     val (updatedWorld, events) = game.applyCommands(game)(world, commands)
     val updatedWorldStuff = applyEvents(worldStuff, events)
     (updatedWorld, updatedWorldStuff)
