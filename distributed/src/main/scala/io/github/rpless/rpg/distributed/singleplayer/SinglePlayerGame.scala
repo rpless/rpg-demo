@@ -23,7 +23,7 @@ case class SinglePlayerGame(actorSystem: ActorSystem, game: Game) {
   }
 
   private def eventFlow = {
-    val timeSource = Source.tick(1.second, 0.25.seconds, Tick)
+    val timeSource = Source.tick(1.second, 0.10.seconds, Tick)
     Flow.fromGraph(GraphDSL.create() { implicit b =>
       import GraphDSL.Implicits._
       val merge = b.add(Merge[GameCommand](2, eagerComplete = true))
